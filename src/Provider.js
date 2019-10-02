@@ -27,6 +27,7 @@ function reducer(state, action) {
 function useSlotify() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const textareaRef = React.useRef();
+  const textareaUtils = React.useRef();
 
   function onSave() {
     if (state.drafting) {
@@ -48,15 +49,23 @@ function useSlotify() {
   }
   
   function slotify() {
-    let slotifiedContent, content;
+    let slotifiedContent, content
+    
     if (textareaRef && textareaRef.current) {
-      content = textareaRef.current.value;
+      textareaUtils.current.copy()
+      textareaRef.current.blur()
+      content = textareaUtils.current.getText()
     }
-    const slot = <Slot />;
-    if (content) {
-      slotifiedContent = attachSlots(split(content), slot);
+    const slot = <Slot />
+    if (content && typeof content === 'string') {
+      slotifiedContent = attachSlots(split(content), slot)
     }
-    dispatch({ type: 'set-slotified-content', content: slotifiedContent });
+    
+    if (!state.drafting) {
+      setDrafting(true)
+    }
+    
+    dispatch({ type: 'set-slotified-content', content: slotifiedContent })
   }
   
   return {
@@ -65,6 +74,7 @@ function useSlotify() {
     onSave,
     setDrafting,
     textareaRef,
+    textareaUtils,
     openModal,
     closeModal
   };

@@ -44,8 +44,8 @@ const App = () => {
         >
           <div>
             <Modal.Description>
-              {slotifiedContent.map((content) => (
-                <div style={{ whiteSpace: 'pre-line' }}>{content}</div>
+              {slotifiedContent.map((content, index) => (
+                <div key={index} style={{ whiteSpace: 'pre-line' }}>{content}</div>
               ))}
             </Modal.Description>
           </div>

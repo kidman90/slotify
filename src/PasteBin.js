@@ -2,7 +2,17 @@ import React from 'react';
 import Context from './Context';
 
 function PasteBin(props) {
-  const { textareaRef } = React.useContext(Context);
+  const { textareaRef, textareaUtils } = React.useContext(Context);
+
+  React.useImperativeHandle(textareaUtils, () => ({
+    copy: () => {
+      textareaRef.current.select();
+      document.execCommand('copy');
+      textareaRef.current.blur();
+    },
+    getText: () =>  textareaRef.current.value
+  }));
+
   return (
     <textarea
       ref={textareaRef}

@@ -5,6 +5,17 @@ import Context from './Context';
 import styles from './styles.module.css';
 
 function SlotDrafting({ quote, author, onChange }) {
+  const authorRef = React.createRef();
+
+  React.useLayoutEffect(() => {
+    const elem = authorRef.current;
+    if (!author) {
+      elem.classList.add(styles.slotQuoteInputAttention);
+    } else if (author) {
+      elem.classList.remove(styles.slotQuoteInputAttention);
+    }
+  }, [author, authorRef]);
+
   const inputStyle = {
     border: 0,
     borderRadius: 4,
@@ -30,17 +41,16 @@ function SlotDrafting({ quote, author, onChange }) {
         name="quote"
         type="text"
         placeholder="Insert a quote"
-        style={{ flexGrow: 1, flexBasis: '70%' }}
         onChange={onChange}
         value={quote}
         className={styles.slotQuoteInput}
         style={{ ...inputStyle, flexGrow: 1, flexBasis: '60%' }}
       />
       <input
+        ref={authorRef}
         name="author"
         type="text"
         placeholder="Author"
-        style={{ flexBasis: '30%' }}
         onChange={onChange}
         value={author}
         className={styles.slotQuoteInput}

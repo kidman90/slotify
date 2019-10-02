@@ -2,3 +2,31 @@
   color: #fff;
   font-size: 0.9rem;
 }
+
+.slotQuoteInputAttention {
+  transition: all 1s ease-out;
+  animation: emptyAuthor 3s infinite;
+  border: 1px solid #91ffde;
+}
+
+.slotQuoteInputAttention::placeholder {
+  color: #91ffde;
+}
+
+.slotQuoteInputAttention:hover,
+.slotQuoteInputAttention:focus,
+.slotQuoteInputAttention:active {
+  transform: scale(1.1);
+}
+
+@keyframes emptyAuthor {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
