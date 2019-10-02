@@ -13,7 +13,7 @@ function PasteBin(props) {
         padding: 12,
         border: '2px solid #eee',
         color: '#666',
-        borderRadius: 4,
+        borderRadius: 4
       }}
       rows={25}
       {...props}

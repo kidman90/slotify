@@ -60,7 +60,7 @@ function SlotStatic({ quote, author }) {
           fontStyle: 'italic',
           color: 'rgb(51, 52, 54)',
           opacity: 0.7,
-          textAlign: 'right',
+          textAlign: 'right'
         }}
       >
         - {author}
@@ -90,17 +90,17 @@ function Slot({ input = 'textfield' }) {
         draftComponent = (
           <SlotDrafting onChange={onChange} quote={quote} author={author} />
         );
-        break
+        break;
       default:
-        break
+        break;
     }
   } else {
     switch (input) {
       case 'textfield':
         staticComponent = <SlotStatic quote={quote} author={author} />;
-        break
+        break;
       default:
-        break
+        break;
     }
   }
   

@@ -4,13 +4,16 @@ import { attachSlots, split } from './utils';
 import Context from './Context';
 
 const initialState = {
-  slotifiedContent: []
+  slotifiedContent: [],
+  drafting: true
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case 'set-slotified-content':
       return { ...state, slotifiedContent: action.content };
+    case 'set-drafting':
+      return { ...state, drafting: action.drafting };
     default:
       return state;
   }
@@ -19,6 +22,17 @@ function reducer(state, action) {
 function useSlotify() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const textareaRef = React.useRef();
+
+  function onSave() {
+    if (state.drafting) {
+      setDrafting(false);
+    }
+  }
+  
+  function setDrafting(drafting) {
+    if (drafting === undefined) return;
+    dispatch({ type: 'set-drafting', drafting });
+  }
   
   function slotify() {
     let slotifiedContent, content;
@@ -35,7 +49,9 @@ function useSlotify() {
   return {
     ...state,
     slotify,
-    textareaRef,
+    onSave,
+    setDrafting,
+    textareaRef
   };
 }
 
