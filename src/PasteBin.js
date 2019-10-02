@@ -1,8 +1,11 @@
 import React from 'react';
+import Context from './Context';
 
 function PasteBin(props) {
+  const { textareaRef } = React.useContext(Context);
   return (
     <textarea
+      ref={textareaRef}
       style={{
         width: '100%',
         margin: '12px 0',
