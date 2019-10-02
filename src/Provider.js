@@ -5,7 +5,8 @@ import Context from './Context';
 
 const initialState = {
   slotifiedContent: [],
-  drafting: true
+  drafting: true,
+  modalOpened: false
 };
 
 function reducer(state, action) {
@@ -14,6 +15,10 @@ function reducer(state, action) {
       return { ...state, slotifiedContent: action.content };
     case 'set-drafting':
       return { ...state, drafting: action.drafting };
+    case 'open-modal':
+      return { ...state, modalOpened: true };
+    case 'close-modal':
+      return { ...state, modalOpened: false };
     default:
       return state;
   }
@@ -27,6 +32,14 @@ function useSlotify() {
     if (state.drafting) {
       setDrafting(false);
     }
+  }
+
+  function openModal() {
+    dispatch({ type: 'open-modal' });
+  }
+  
+  function closeModal() {
+    dispatch({ type: 'close-modal' });
   }
   
   function setDrafting(drafting) {
@@ -51,7 +64,9 @@ function useSlotify() {
     slotify,
     onSave,
     setDrafting,
-    textareaRef
+    textareaRef,
+    openModal,
+    closeModal
   };
 }
 
