@@ -28,6 +28,7 @@ function useSlotify() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const textareaRef = React.useRef();
   const textareaUtils = React.useRef();
+  const modalRef = React.useRef();
 
   function onSave() {
     if (state.drafting) {
@@ -41,6 +42,16 @@ function useSlotify() {
   
   function closeModal() {
     dispatch({ type: 'close-modal' });
+  }
+
+  function onCopyFinalContent() {
+    const html = modalRef.current.innerHTML
+    const inputEl = document.createElement('textarea')
+    document.body.appendChild(inputEl)
+    inputEl.value = html
+    inputEl.select()
+    document.execCommand('copy')
+    document.body.removeChild(inputEl)
   }
   
   function setDrafting(drafting) {
@@ -75,8 +86,10 @@ function useSlotify() {
     setDrafting,
     textareaRef,
     textareaUtils,
+    modalRef,
     openModal,
-    closeModal
+    closeModal,
+    onCopyFinalContent
   };
 }
 

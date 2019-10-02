@@ -4,7 +4,6 @@ import Button from './Button';
 import Context from './Context';
 import Provider from './Provider';
 import PasteBin from './PasteBin';
-import styles from './styles.module.css';
 
 // Purposely call each fn without args since we don't need them
 const callFns = (...fns) => () => fns.forEach((fn) => fn && fn());
@@ -16,8 +15,15 @@ const App = () => {
     slotify,
     onSave,
     openModal,
-    closeModal
+    closeModal,
+    modalRef,
+    onCopyFinalContent
   } = React.useContext(Context);
+
+  const ModalContent = React.useCallback(
+    ({ innerRef, ...props }) => <div ref={innerRef} {...props} />,
+    [],
+  );
   
   return (
     <div
@@ -43,7 +49,7 @@ const App = () => {
           }}
         >
           <div>
-            <Modal.Description>
+            <Modal.Description as={ModalContent} innerRef={modalRef}>
               {slotifiedContent.map((content, index) => (
                 <div key={index} style={{ whiteSpace: 'pre-line' }}>{content}</div>
               ))}
@@ -52,6 +58,14 @@ const App = () => {
           <Modal.Actions>
             <Button type="button" onClick={onSave}>
               SAVE
+            </Button>
+            &nbsp;
+            <Button type="button" onClick={closeModal}>
+              CLOSE
+            </Button>
+            &nbsp;
+            <Button type="button" onClick={onCopyFinalContent}>
+              COPY
             </Button>
           </Modal.Actions>
         </Modal.Content>

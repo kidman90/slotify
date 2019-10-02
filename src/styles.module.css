@@ -30,3 +30,15 @@
     opacity: 1;
   }
 }
+
+.slotRoot:hover {
+  background: rgba(245, 49, 104, 0.3) !important;
+}
+
+.slotRootStatic:hover {
+  background: rgba(100, 100, 100, 0.07) !important;
+}
+
+.slotInnerRoot:hover {
+  filter: brightness(80%);
+}

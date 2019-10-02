@@ -134,6 +134,10 @@ function Slot({ input = 'textfield' }) {
         maxHeight: drafting ? 'auto' : 100,
         padding: drafting ? 8 : 0
       }}
+      className={cx({
+        [styles.slotRoot]: drafting,
+        [styles.slotRootStatic]: !drafting,
+      })}
     >
       <div
         className={styles.slotInnerRoot}
